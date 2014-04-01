@@ -1,0 +1,5 @@
+development:
+  adapter: mysql2
+  database: mealminder
+  user: root
+  host: localhost

@@ -3,12 +3,9 @@ require 'action_mailer'
 require 'mysql2'
 require 'active_record'
 
-ActiveRecord::Base.establish_connection(
-  adapter: 'mysql2',
-  database: 'mealminder',
-  user: 'root',
-  host: 'localhost'
-)
+@environment = ENV['RACK_ENV'] || 'development'
+@dbconfig = YAML.load(File.read('config/database.yml'))
+ActiveRecord::Base.establish_connection @dbconfig[@environment]
 
 Dir['mailers/*.rb'].each { |file| require_relative file }
 
